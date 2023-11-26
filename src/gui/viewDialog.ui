@@ -1746,6 +1746,16 @@
                </item>
               </layout>
              </item>
+             <item row="14" column="1">
+              <widget class="QCheckBox" name="solarSystemPrecessionCheckBox">
+               <property name="toolTip">
+                <string>Changes the axis of precession to the solar system gravity center instead of Earth.</string>
+               </property>
+               <property name="text">
+                <string>Whole solar system precession instead of just Earth</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </widget>
           </item>

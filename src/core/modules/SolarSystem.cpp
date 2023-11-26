@@ -76,6 +76,7 @@ SolarSystem::SolarSystem() : StelObjectModule()
 	, flagPermanentSolarCorona(true)
 	, flagOrbits(false)
 	, flagLightTravelTime(true)
+	, flagSolarSystemPrecession(false)
 	, flagUseObjModels(false)
 	, flagShowObjSelfShadows(true)
 	, flagShow(false)
@@ -205,6 +206,7 @@ void SolarSystem::init()
 	setLabelsAmount(conf->value("astro/labels_amount", 3.).toDouble());
 	setFlagOrbits(conf->value("astro/flag_planets_orbits").toBool());
 	setFlagLightTravelTime(conf->value("astro/flag_light_travel_time", true).toBool());
+	setFlagSolarSystemPrecession(conf->value("astro/flag_solar_system_precession", false).toBool());
 	setFlagUseObjModels(conf->value("astro/flag_use_obj_models", false).toBool());
 	setFlagShowObjSelfShadows(conf->value("astro/flag_show_obj_self_shadows", true).toBool());
 	setFlagPointer(conf->value("astro/flag_planets_pointers", true).toBool());
@@ -2170,6 +2172,15 @@ void SolarSystem::setFlagLightTravelTime(bool b)
 	{
 		flagLightTravelTime = b;
 		emit flagLightTravelTimeChanged(b);
+	}
+}
+
+void SolarSystem::setFlagSolarSystemPrecession(bool b)
+{
+	if(b!=flagSolarSystemPrecession)
+	{
+		flagSolarSystemPrecession = b;
+		emit flagSolarSystemPrecessionChanged(b);
 	}
 }
 

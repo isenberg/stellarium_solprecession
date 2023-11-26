@@ -70,6 +70,7 @@ class SolarSystem : public StelObjectModule
 	Q_PROPERTY(bool flagIsolatedTrails		READ getFlagIsolatedTrails		WRITE setFlagIsolatedTrails		NOTIFY flagIsolatedTrailsChanged)
 	Q_PROPERTY(int numberIsolatedTrails		READ getNumberIsolatedTrails		WRITE setNumberIsolatedTrails		NOTIFY numberIsolatedTrailsChanged)
 	Q_PROPERTY(bool flagLightTravelTime		READ getFlagLightTravelTime		WRITE setFlagLightTravelTime		NOTIFY flagLightTravelTimeChanged)
+	Q_PROPERTY(bool flagSolarSystemPrecession   READ getFlagSolarSystemPrecession   WRITE setFlagSolarSystemPrecession    NOTIFY flagSolarSystemPrecessionChanged)
 	Q_PROPERTY(bool flagUseObjModels		READ getFlagUseObjModels		WRITE setFlagUseObjModels		NOTIFY flagUseObjModelsChanged)
 	Q_PROPERTY(bool flagShowObjSelfShadows		READ getFlagShowObjSelfShadows		WRITE setFlagShowObjSelfShadows		NOTIFY flagShowObjSelfShadowsChanged)
 	Q_PROPERTY(bool flagMoonScale			READ getFlagMoonScale			WRITE setFlagMoonScale			NOTIFY flagMoonScaleChanged)
@@ -276,6 +277,11 @@ public slots:
 	//! Get the current value of the flag which determines if light travel time
 	//! calculation is used or not.
 	bool getFlagLightTravelTime(void) const {return flagLightTravelTime;}
+
+	//! Set flag which determines if the whole solar system precesses or only Earth
+	void setFlagSolarSystemPrecession(bool b);
+	//! Get the current value of the flag which determines  if the whole solar system precesses or only Earth
+	bool getFlagSolarSystemPrecession(void) const {return flagSolarSystemPrecession;}
 
 	//! Set flag whether to use OBJ models for rendering, where available
 	void setFlagUseObjModels(bool b) { if(b!=flagUseObjModels) { flagUseObjModels = b; emit flagUseObjModelsChanged(b); } }
@@ -759,6 +765,7 @@ signals:
 	void flagIsolatedTrailsChanged(bool b);
 	void numberIsolatedTrailsChanged(int n);
 	void flagLightTravelTimeChanged(bool b);
+	void flagSolarSystemPrecessionChanged(bool b);
 	void flagUseObjModelsChanged(bool b);
 	void flagShowObjSelfShadowsChanged(bool b);
 	void flagMoonScaleChanged(bool b);
@@ -1089,6 +1096,7 @@ private:
 	// Master settings
 	bool flagOrbits;
 	bool flagLightTravelTime;
+	bool flagSolarSystemPrecession;
 	bool flagUseObjModels;
 	bool flagShowObjSelfShadows;
 

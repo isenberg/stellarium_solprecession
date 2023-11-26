@@ -45,6 +45,7 @@ function saveState(stateName)
 	savedStates[stateName]["SolarSystemFlagLabels"] = SolarSystem.getFlagLabels();
 	savedStates[stateName]["SolarSystemLabelsAmount"] = SolarSystem.getLabelsAmount();
 	savedStates[stateName]["SolarSystemFlagLightTravelTime"] = SolarSystem.getFlagLightTravelTime();
+	savedStates[stateName]["SolarSystemFlagSolarSystemPrecession"] = SolarSystem.getFlagSolarSystemPrecession();
 	savedStates[stateName]["SolarSystemFlagMoonScale"] = SolarSystem.getFlagMoonScale();
 	savedStates[stateName]["SolarSystemMoonScale"] = SolarSystem.getMoonScale();
 	savedStates[stateName]["MeteorMgrZHR"] = SporadicMeteorMgr.getZHR();
@@ -147,6 +148,7 @@ function restoreState(stateName, options)
 	SolarSystem.setFlagLabels(savedStates[stateName]["SolarSystemFlagLabels"]);
 	SolarSystem.setLabelsAmount(savedStates[stateName]["SolarSystemLabelsAmount"]);
 	SolarSystem.setFlagLightTravelTime(savedStates[stateName]["SolarSystemFlagLightTravelTime"]);
+	SolarSystem.setFlagSolarSystemPrecession(savedStates[stateName]["SolarSystemFlagSolarSystemPrecession"]);
 	SolarSystem.setFlagMoonScale(savedStates[stateName]["SolarSystemFlagMoonScale"]);
 	SolarSystem.setMoonScale(savedStates[stateName]["SolarSystemMoonScale"]);
 	SporadicMeteorMgr.setZHR(savedStates[stateName]["MeteorMgrZHR"]);

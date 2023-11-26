@@ -876,6 +876,7 @@ void ConfigurationDialog::saveAllSettings()
 	conf->setValue("viewing/flag_planets_orbits_only",		propMgr->getStelPropertyValue("SolarSystem.flagPlanetsOrbitsOnly").toBool());
 	conf->setValue("viewing/flag_orbits_with_moons",		propMgr->getStelPropertyValue("SolarSystem.flagOrbitsWithMoons").toBool());
 	conf->setValue("astro/flag_light_travel_time",			propMgr->getStelPropertyValue("SolarSystem.flagLightTravelTime").toBool());
+	conf->setValue("astro/flag_solar_system_precession",	propMgr->getStelPropertyValue("SolarSystem.flagSolarSystemPrecession").toBool());
 	conf->setValue("viewing/flag_draw_moon_halo",			propMgr->getStelPropertyValue("SolarSystem.flagDrawMoonHalo").toBool());
 	conf->setValue("viewing/flag_draw_sun_halo",			propMgr->getStelPropertyValue("SolarSystem.flagDrawSunHalo").toBool());
 	conf->setValue("viewing/flag_draw_sun_corona",			propMgr->getStelPropertyValue("SolarSystem.flagPermanentSolarCorona").toBool());

@@ -276,6 +276,7 @@ flag_planets                        = true
 flag_planets_hints                  = false
 flag_planets_orbits                 = false
 flag_light_travel_time              = true
+flag_solar_system_precession        = false
 flag_object_trails                  = false
 flag_nebula                         = true
 flag_nebula_name                    = false
