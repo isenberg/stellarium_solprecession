@@ -10,6 +10,9 @@
 [![DOI:10.1558/jsa.17822](http://img.shields.io/badge/DOI-10.1558/jsa.17822-blue.svg)](https://doi.org/10.1558/jsa.17822)
 [![DOI:10.5281/zenodo.8105939](http://img.shields.io/badge/DOI-10.5281/zenodo.8105939-blue.svg)](https://doi.org/10.5281/zenodo.8105939)
 
+This is a modified fork. You will get unexpected results, do not use yet!
+Use the original for now: https://github.com/Stellarium/stellarium
+
 Stellarium is a free open source planetarium for your computer. It shows a realistic sky
 in 3D, just like what you see with the naked eye, binoculars or a telescope.
 
