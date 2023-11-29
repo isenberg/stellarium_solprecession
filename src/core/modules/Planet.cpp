@@ -1864,9 +1864,10 @@ Vec3d Planet::getJ2000EquatorialPos(const StelCore *core) const
 double Planet::getRotObliquity(double JDE) const
 {
 	// JDE=2451545.0 for J2000.0
-	if (englishName=="Earth")
+	// called once during observer location change
+	if (englishName=="Earth") {
 		return getPrecessionAngleVondrakEpsilon(JDE);
-	else
+	} else
 		return static_cast<double>(re.obliquity);
 }
 
@@ -1948,6 +1949,11 @@ void Planet::computePosition(const double dateJDE, const Vec3d &aberrationPush)
 	if (fabs(lastJDE-dateJDE)>deltaJDE)
 	{
 		coordFunc(dateJDE, &eclipticPos[0], &eclipticVelocity[0], orbitPtr);
+		// if enabled, add solar system precession to all children of Sun
+		// moons are excluded as their positions are always calculated relative to their planet
+		if (propMgr->getStelPropertyValue("SolarSystem.flagSolarSystemPrecession").toBool()	&& getParent() && getParent()->getPlanetType()==PlanetType::isStar && getParent()->getEnglishName()=="Sun") {
+			qDebug() << "PRECESSION: adding solar centric precession to " + getEnglishName();
+		}
 		lastJDE = dateJDE;
 	}
 	this->aberrationPush=aberrationPush;
