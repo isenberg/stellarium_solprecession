@@ -1864,9 +1864,9 @@ Vec3d Planet::getJ2000EquatorialPos(const StelCore *core) const
 double Planet::getRotObliquity(double JDE) const
 {
 	// JDE=2451545.0 for J2000.0
-	if (englishName=="Earth") {
+	if (englishName=="Earth")
 		return getPrecessionAngleVondrakEpsilon(JDE);
-	} else
+	else
 		return static_cast<double>(re.obliquity);
 }
 
