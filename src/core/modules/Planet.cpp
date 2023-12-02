@@ -1948,10 +1948,12 @@ void Planet::computePosition(const double dateJDE, const Vec3d &aberrationPush)
 	if (fabs(lastJDE-dateJDE)>deltaJDE)
 	{
 		coordFunc(dateJDE, &eclipticPos[0], &eclipticVelocity[0], orbitPtr);
-		// if enabled, add solar system precession to all children of Sun
-		// and disable Earth-centered precession in Planet::computeTransMatrix
-		// moons are excluded as their positions are always calculated relative to their planet
-		if (propMgr->getStelPropertyValue("SolarSystem.flagSolarSystemPrecession").toBool()	&& getParent() && getParent()->getPlanetType()==PlanetType::isStar && getParent()->getEnglishName()=="Sun")
+		// If this experimental precession mode is enabled,
+		// add solar system nodal rotation to all children of Sun,
+		// simulating approximately a special whole solar system precession model.
+		// Earth is excluded from this change as there the precession is already included from the ephemerides.
+		// Moons are also excluded as their positions are always calculated relative to their planet.
+		if (getEnglishName() != "Earth" && propMgr->getStelPropertyValue("SolarSystem.flagSolarSystemPrecession").toBool()	&& getParent() && getParent()->getPlanetType()==PlanetType::isStar && getParent()->getEnglishName()=="Sun")
 		{
 			// precession calculation copied from Planet::computeTransMatrix
 			double eps_A, chi_A, omega_A, psi_A;
@@ -1970,12 +1972,14 @@ void Planet::computePosition(const double dateJDE, const Vec3d &aberrationPush)
 			Vec3d planetPosPrecesssed = originPos + planetHeliocentricPosPrecessed;
 			eclipticPos = planetPosPrecesssed;
 			setHeliocentricEclipticPos(planetHeliocentricPosPrecessed);
-			if(getEnglishName() == "Jupiter")
+			/*
+			if(getEnglishName() == "Saturn")
 			{
 				qDebug() << "PRECESSION: solar system precession degrees: " << psi_A*180/M_PI << " " << omega_A*180/M_PI << " " << chi_A*180/M_PI;
-				qDebug() << "PRECESSION: Jupiter original pos:  " << planetHeliocentricPos;
-				qDebug() << "PRECESSION: Jupiter precessed pos: " << planetHeliocentricPosPrecessed;
+				qDebug() << "PRECESSION: " << getEnglishName() << " original pos:  " << planetHeliocentricPos;
+				qDebug() << "PRECESSION: " << getEnglishName() << " sol-precessed pos: " << planetHeliocentricPosPrecessed;
 			}
+			*/
 		}
 		lastJDE = dateJDE;
 	}
@@ -2003,9 +2007,8 @@ void Planet::computeTransMatrix(double JD, double JDE)
 
 	// We can inject a proper precession plus even nutation matrix in this stage, if available.
 	// if whole solar system precession mode is active, precession is added in Planet::computePosition
-	if (englishName=="Earth" and ! propMgr->getStelPropertyValue("SolarSystem.flagSolarSystemPrecession").toBool())
+	if (englishName=="Earth")
 	{
-		qDebug() << "PRECESSION: added Earth-centered precession";
 		// rotLocalToParent = Mat4d::zrotation(re.ascendingNode - re.precessionRate*(jd-re.epoch)) * Mat4d::xrotation(-getRotObliquity(jd));
 		// We follow Capitaine's (2003) formulation P=Rz(Chi_A)*Rx(-omega_A)*Rz(-psi_A)*Rx(eps_o). (Explan.Suppl. 2013, 6.28)
 		// ADS: 2011A&A...534A..22V = A&A 534, A22 (2011): Vondrak, Capitane, Wallace: New Precession Expressions, valid for long time intervals:
