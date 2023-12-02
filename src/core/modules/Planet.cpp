@@ -1963,8 +1963,11 @@ void Planet::computePosition(const double dateJDE, const Vec3d &aberrationPush)
 			// 3. chi_A: rotates the equinox (zero degree)
 			// under this model, the whole solar system is wobbling instead of only the Earth axis
 			omega_A = 0.0;
-			chi_A = 0.0;
-			Mat4d precRot = Mat4d::zrotation(-psi_A) * Mat4d::xrotation(-omega_A) * Mat4d::zrotation(chi_A);
+			// Using inverted angles compared to Planet::computeTransMatrix()
+			// to simulate the solar system precession instead of Earth precession.
+			// For example in 8500CE (2000 + 26000/4) Earth equinox will occur 90° (360/4) later in solar longitude
+			// in relation to other planets, with this special precession model compared to the standard model precession.
+			Mat4d precRot = Mat4d::zrotation(psi_A) * Mat4d::xrotation(omega_A) * Mat4d::zrotation(-chi_A);
 			Vec3d planetHeliocentricPos = getHeliocentricEclipticPos();
 			Vec3d planetHeliocentricPosPrecessed = precRot * planetHeliocentricPos;
 			Vec3d planetPos = getEclipticPos();
